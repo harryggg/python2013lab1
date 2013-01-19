@@ -20,17 +20,20 @@ def master_or_visa(n):
     return 'it is neither mastercard or visa'
 
 def validate(card):
-    #master or visa?
+    # run master_or_visa ,check whether it is a valid card
     result=master_or_visa(card)
     if result == 'Visa' or result == 'MasterCard':
         #Luhn algorithm
         addup = 0
+        #double all alternate digit start from 1st, if >9 ,minus 9
         for i in card[::2]:
             double = int(i) * 2
             if double > 9 : double -= 9
             addup += double
+        #sum up other digits
         for i in card[1::2]:
             addup += int(i)
+        #if result % 10 ==0 : valid
         if addup % 10 == 0:
             return 'Valid ' + result
         else:
